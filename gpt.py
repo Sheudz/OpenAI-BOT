@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 import os
 import openai
 import datetime
@@ -12,7 +12,7 @@ openai.api_key = "апи ключ от опен аи"
 bot = discord.Bot(intents=discord.Intents.all())
 @bot.event
 async def on_ready():
-	print("BOT STARTED!!!")
+    print("BOT STARTED!!!")
 
 @bot.event
 async def on_application_command_error(ctx, error):
@@ -50,12 +50,12 @@ async def unblock_user(ctx, user: discord.Member):
 
 @bot.command(name="ask",description="ask a question for gpt")
 @commands.cooldown(1, 30, commands.BucketType.user)
-async def ask(ctx, ask: str):
+async def ask(ctx, question: str):
         role_id = 1054109349628358817
         author = ctx.author
 
         if role_id in [role.id for role in author.roles]:
-            await ctx.respond("GPT заблокирован для тебя!")
+            await ctx.respond("тебе не доступен GPT")
         elif ctx.channel.id != 1054106565663264809:
             await ctx.respond("Я могу отвечать на ваши вопросы только в канале #gpt-chat")
         else:
@@ -63,7 +63,7 @@ async def ask(ctx, ask: str):
             a = datetime.datetime.now()
             response = openai.Completion.create(
             engine="text-davinci-003",
-            prompt=ask,
+            prompt=question,
             temperature=0.4,
             max_tokens=1024,
             top_p=0.1,
@@ -75,7 +75,7 @@ async def ask(ctx, ask: str):
             moment2 = datetime.datetime(9999, 9, 9, b.hour, b.minute, b.second)
             delta = moment2 - moment1
             embed = discord.Embed(description=f"**GPT3**", color=0xff0000)
-            embed.add_field(name=f"**{ctx.author} задал вопрос GPT:**", value=ask)
+            embed.add_field(name=f"**{ctx.author} задал вопрос GPT:**", value=question)
             embed.add_field(name="**Ответ GPT:**", value=response["choices"][0]["text"])
             embed.set_footer(text=f"обработка запроса заняла {delta.total_seconds()} секунд(ы)")
             await ctx.followup.send(embed=embed)
