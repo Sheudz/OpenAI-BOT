@@ -10,9 +10,10 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 bot = discord.Bot(intents=discord.Intents.all())
 start_time = ttime()
-gptgroup = bot.create_group("gpt", "gpt related commands")
+askgroup = bot.create_group("ask", "gpt related commands")
 accessgroup = bot.create_group("member", "member access related commands")
 
+# EVENTS
 @bot.event
 async def on_ready():
     print("BOT IS READY")
@@ -25,6 +26,7 @@ async def on_application_command_error(ctx, error):
             description=f"{error}",
             color=0xff0000), ephemeral=True)
 
+# ACCESS
 @accessgroup.command(name="block",description="block gpt for the member")
 async def member_block(ctx, member: discord.Member):
         role_id = 1054002956493664268
@@ -77,7 +79,8 @@ async def member_unblock(ctx, member: discord.Member):
         else:
             await ctx.respond("у тебя недостаточно прав чтоб разблокировать GPT для пользователей", ephemeral=True)
 
-@gptgroup.command(name="ask",description="ask gpt a question")
+# GPT
+@askgroup.command(name="davinci", description="ask davinci model a question")
 @commands.cooldown(1, 30, commands.BucketType.user)
 async def ask(ctx, question: discord.Option(str)):
         role_id = 1054109349628358817
