@@ -86,7 +86,7 @@ async def member_unblock(ctx, member: discord.Member):
 @askgroup.command(name="babbage", description="ask babbage model a question")
 @commands.cooldown(1, 30, commands.BucketType.user)
 async def ask(ctx, question: discord.Option(str)):
-        if role_admin in [role.id for role in ctx.author.roles]:
+        if role_ban in [role.id for role in ctx.author.roles]:
             await ctx.respond("тебе не доступен GPT", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
             await ctx.respond("Я могу отвечать на ваши вопросы только в канале #gpt-chat", ephemeral=True)
@@ -114,7 +114,7 @@ async def ask(ctx, question: discord.Option(str)):
 @commands.cooldown(1, 30, commands.BucketType.user)
 async def ask(ctx, question: discord.Option(str)):
         roles = [role.id for role in ctx.author.roles]
-        if role_admin in roles:
+        if role_ban in roles:
             await ctx.respond("тебе не доступен GPT", ephemeral=True)
         elif role_newbie not in roles and role_constant not in roles and role_old not in roles and role_eternalold not in roles and role_pseudoowner not in roles:
             await ctx.respond("тебе не доступна єта модель изза слишком низкого уровня", ephemeral=True)
@@ -144,7 +144,7 @@ async def ask(ctx, question: discord.Option(str)):
 @commands.cooldown(1, 30, commands.BucketType.user)
 async def ask(ctx, question: discord.Option(str)):
         roles = [role.id for role in ctx.author.roles]
-        if role_admin in roles:
+        if role_ban in roles:
             await ctx.respond("тебе не доступен GPT", ephemeral=True)
         elif role_constant not in roles and role_old not in roles and role_eternalold not in roles and role_pseudoowner not in roles:
             await ctx.respond("тебе не доступна єта модель изза слишком низкого уровня", ephemeral=True)
