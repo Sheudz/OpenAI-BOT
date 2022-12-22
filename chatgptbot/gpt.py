@@ -1,3 +1,4 @@
+# LIBRARIES
 import discord
 from discord.ext import commands
 import os
@@ -8,6 +9,7 @@ from time import time as ttime
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+# VALUES
 role_ban = 1054109349628358817
 role_admin = 1054002956493664268
 role_newbie = 973871427788873748
@@ -18,15 +20,19 @@ role_pseudoowner = 1044959814096269312
 
 channel_gpt = 1054106565663264809
 
+# BOT
 bot = discord.Bot(intents=discord.Intents.all())
 start_time = ttime()
+
+# GROUPS
 askgroup = bot.create_group("ask", "ask different models a question")
 accessgroup = bot.create_group("member", "member access related commands")
 
 # EVENTS
 @bot.event
 async def on_ready():
-    print("BOT IS READY")
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game('https://github.com/Sheudz/Python-GPT-BOT'))
+    print("BOT IS UP")
 
 @bot.event
 async def on_application_command_error(ctx, error):
@@ -34,6 +40,11 @@ async def on_application_command_error(ctx, error):
         return await ctx.respond(embed=discord.Embed(
             title="Error",
             description=f"{error}",
+            color=0xff0000), ephemeral=True)
+    elif isinstance(error, commands.MissingPermissions):
+        return await ctx.respond(embed=discord.Embed(
+            title="Error",
+            description="У тебя нехватает прав",
             color=0xff0000), ephemeral=True)
 
 # ACCESS
