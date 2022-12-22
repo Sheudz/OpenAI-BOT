@@ -4,6 +4,6 @@ services:
   gptbot:
     build: ./chatgptbot
     environment:
-      - OPENAI_API_TOKEN=openaitoken
-      - BOT_TOKEN=bottoken
+      - OPENAI_API_KEY=
+      - BOT_TOKEN=
     restart: always

@@ -20,7 +20,7 @@ channel_gpt = 1054106565663264809
 
 bot = discord.Bot(intents=discord.Intents.all())
 start_time = ttime()
-askgroup = bot.create_group("ask", "gpt related commands")
+askgroup = bot.create_group("ask", "ask different models a question")
 accessgroup = bot.create_group("member", "member access related commands")
 
 # EVENTS
@@ -104,9 +104,9 @@ async def ask(ctx, question: discord.Option(str)):
             )
             computation_finish = ttime()
             elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(description=f"**GPT3**", color=0xff0000)
+            embed = discord.Embed(color=0xff0000)
             embed.add_field(name="**Ответ GPT:**", value=response["choices"][0]["text"])
-            embed.set_footer(text=f"обработка запроса заняла {str(datetime.timedelta(seconds=elapsedtime))}")
+            embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
 @askgroup.command(name="curie", description="ask curie model a question")
@@ -133,9 +133,9 @@ async def ask(ctx, question: discord.Option(str)):
             )
             computation_finish = ttime()
             elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(description=f"**GPT3**", color=0xff0000)
+            embed = discord.Embed(color=0xff0000)
             embed.add_field(name="**Ответ GPT:**", value=response["choices"][0]["text"])
-            embed.set_footer(text=f"обработка запроса заняла {str(datetime.timedelta(seconds=elapsedtime))}")
+            embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
 @askgroup.command(name="davinci", description="ask davinci model a question")
@@ -162,9 +162,9 @@ async def ask(ctx, question: discord.Option(str)):
             )
             computation_finish = ttime()
             elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(description=f"**GPT3**", color=0xff0000)
+            embed = discord.Embed(color=0xff0000)
             embed.add_field(name="**Ответ GPT:**", value=response["choices"][0]["text"])
-            embed.set_footer(text=f"обработка запроса заняла {str(datetime.timedelta(seconds=elapsedtime))}")
+            embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
 # MISC
