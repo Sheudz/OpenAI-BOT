@@ -117,7 +117,7 @@ async def ask(ctx, question: discord.Option(str)):
         if role_ban in roles:
             await ctx.respond("тебе не доступен GPT", ephemeral=True)
         elif role_newbie not in roles and role_constant not in roles and role_old not in roles and role_eternalold not in roles and role_pseudoowner not in roles:
-            await ctx.respond("тебе не доступна єта модель изза слишком низкого уровня", ephemeral=True)
+            await ctx.respond("тебе не доступна єта модель из-за слишком низкого уровня", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
             await ctx.respond("Я могу отвечать на ваши вопросы только в канале #gpt-chat", ephemeral=True)
         else:
@@ -147,7 +147,7 @@ async def ask(ctx, question: discord.Option(str)):
         if role_ban in roles:
             await ctx.respond("тебе не доступен GPT", ephemeral=True)
         elif role_constant not in roles and role_old not in roles and role_eternalold not in roles and role_pseudoowner not in roles:
-            await ctx.respond("тебе не доступна єта модель изза слишком низкого уровня", ephemeral=True)
+            await ctx.respond("тебе не доступна єта модель из-за слишком низкого уровня", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
             await ctx.respond("Я могу отвечать на ваши вопросы только в канале #gpt-chat", ephemeral=True)
         else:
