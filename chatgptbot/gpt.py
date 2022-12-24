@@ -30,39 +30,39 @@ askgroup = bot.create_group("ask", "ask different models a question")
 accessgroup = bot.create_group("member", "member access related commands")
 
 # CLASSES
-class GptButtons(discord.ui.View):
-    def __init__(self, ctx, question, model, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.timeout = None
-
-        self.ctx = ctx
-        self.question = question
-        self.model = model
-
-    @discord.ui.button(label="Regenerate", emoji="♻️", style=discord.ButtonStyle.green)
-    async def rbutton_callback(self, _, interaction):
-        if self.ctx.author.id == interaction.user.id:
-            await interaction.response.defer()
-            computation_start = ttime()
-            response = openai.Completion.create(
-                engine=self.model,
-                prompt=self.question,
-                temperature=0.6,
-                max_tokens=1024,
-                top_p=0.1,
-                frequency_penalty=0.1,
-                presence_penalty=0.1
-            )
-            computation_finish = ttime()
-            elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(color=0xff0000)
-            embed.add_field(name="**Вопрос:**", value=self.question, inline=False)
-            embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
-            embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
-            ogres = await interaction.original_response()
-            await interaction.followup.edit_message(message_id=ogres.id, view=None, embed=embed)
-        else:
-            await interaction.response.send_message("Вы не можете заново сгенерировать ответ на не ваш вопрос", ephemeral=True)
+# class GptButtons(discord.ui.View):
+#     def __init__(self, ctx, question, model, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.timeout = None
+#
+#         self.ctx = ctx
+#         self.question = question
+#         self.model = model
+#
+#     @discord.ui.button(label="Regenerate", emoji="♻️", style=discord.ButtonStyle.green)
+#     async def rbutton_callback(self, _, interaction):
+#         if self.ctx.author.id == interaction.user.id:
+#             await interaction.response.defer()
+#             computation_start = ttime()
+#             response = openai.Completion.create(
+#                 engine=self.model,
+#                 prompt=self.question,
+#                 temperature=0.6,
+#                 max_tokens=1024,
+#                 top_p=0.1,
+#                 frequency_penalty=0.1,
+#                 presence_penalty=0.1
+#             )
+#             computation_finish = ttime()
+#             elapsedtime = int(round(computation_finish - computation_start))
+#             embed = discord.Embed(color=0xff0000)
+#             embed.add_field(name="**Вопрос:**", value=self.question, inline=False)
+#             embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
+#             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
+#             ogres = await interaction.original_response()
+#             await interaction.followup.edit_message(message_id=ogres.id, view=None, embed=embed)
+#         else:
+#             await interaction.response.send_message("Вы не можете заново сгенерировать ответ на не ваш вопрос", ephemeral=True)
 
 # EVENTS
 @bot.event
@@ -155,7 +155,7 @@ async def ask(ctx, question: discord.Option(str)):
             embed.add_field(name="**Вопрос:**", value=question, inline=False)
             embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
-            await ctx.followup.send(embed=embed, view=GptButtons(ctx, question, "text-babbage-001"))
+            await ctx.followup.send(embed=embed)
 
 @askgroup.command(name="curie", description="ask curie model a question")
 @commands.cooldown(1, 30, commands.BucketType.user)
@@ -185,7 +185,7 @@ async def ask(ctx, question: discord.Option(str)):
             embed.add_field(name="**Вопрос:**", value=question, inline=False)
             embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
-            await ctx.followup.send(embed=embed, view=GptButtons(ctx, question, "text-curie-001"))
+            await ctx.followup.send(embed=embed)
 
 @askgroup.command(name="davinci", description="ask davinci model a question")
 @commands.cooldown(1, 30, commands.BucketType.user)
@@ -215,7 +215,7 @@ async def ask(ctx, question: discord.Option(str)):
             embed.add_field(name="**Вопрос:**", value=question, inline=False)
             embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
-            await ctx.followup.send(embed=embed, view=GptButtons(ctx, question, "text-davinci-003"))
+            await ctx.followup.send(embed=embed)
 
 # MISC
 @bot.command(name="ping", description="measures latency")
