@@ -237,7 +237,7 @@ async def uptime(ctx):
     await ctx.respond(embed=embed, ephemeral=True)
 
 try:
-    bot.run(os.getenv("BOT_TOKEN"))
+    bot.run(os.getenv("DISCORD_BOT_TOKEN"))
 except Exception as err:
     print('Discord bot token error')
     print(err)
