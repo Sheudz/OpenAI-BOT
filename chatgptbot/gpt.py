@@ -60,7 +60,10 @@ accessgroup = bot.create_group("member", "member access related commands")
 #             if len(response["choices"][0]["text"]) < 1024:
 #                 embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
 #             else:
-#                 embed.add_field(name="**Ответ:**", value="Сгенерированный ответ превысил максималное количество букв в поле ембеда", inline=False)
+#                 embed.description="Длинна ответа превысила максимальное значение"
+#                 embed.add_field(name="**Ответ:**",
+#                                 value=response["choices"][0]["text"][:1024],
+#                                 inline=False)
 #             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
 #             ogres = await interaction.original_response()
 #             await interaction.followup.edit_message(message_id=ogres.id, view=None, embed=embed)
@@ -159,8 +162,9 @@ async def ask(ctx, question: discord.Option(str)):
             if len(response["choices"][0]["text"]) < 1024:
                 embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
             else:
+                embed.description="Длинна ответа превысила максимальное значение"
                 embed.add_field(name="**Ответ:**",
-                                value="Сгенерированный ответ превысил максималное количество букв в поле ембеда",
+                                value=response["choices"][0]["text"][:1024],
                                 inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
@@ -194,8 +198,9 @@ async def ask(ctx, question: discord.Option(str)):
             if len(response["choices"][0]["text"]) < 1024:
                 embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
             else:
+                embed.description="Длинна ответа превысила максимальное значение"
                 embed.add_field(name="**Ответ:**",
-                                value="Сгенерированный ответ превысил максималное количество букв в поле ембеда",
+                                value=response["choices"][0]["text"][:1024],
                                 inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
@@ -229,8 +234,9 @@ async def ask(ctx, question: discord.Option(str)):
             if len(response["choices"][0]["text"]) < 1024:
                 embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
             else:
+                embed.description="Длинна ответа превысила максимальное значение"
                 embed.add_field(name="**Ответ:**",
-                                value="Сгенерированный ответ превысил максималное количество букв в поле ембеда",
+                                value=response["choices"][0]["text"][:1024],
                                 inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
