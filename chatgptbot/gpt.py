@@ -55,15 +55,8 @@ accessgroup = bot.create_group("member", "member access related commands")
 #             )
 #             computation_finish = ttime()
 #             elapsedtime = int(round(computation_finish - computation_start))
-#             embed = discord.Embed(color=0xff0000)
-#             embed.add_field(name="**Вопрос:**", value=self.question, inline=False)
-#             if len(response["choices"][0]["text"]) < 1024:
-#                 embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
-#             else:
-#                 embed.description="Длинна ответа превысила максимальное значение"
-#                 embed.add_field(name="**Ответ:**",
-#                                 value=response["choices"][0]["text"][:1024],
-#                                 inline=False)
+#             embed = discord.Embed(title="Ответ:", description=response["choices"][0]["text"], color=0xff0000)
+#             embed.add_field(name="Вопрос:", value=question, inline=False)
 #             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
 #             ogres = await interaction.original_response()
 #             await interaction.followup.edit_message(message_id=ogres.id, view=None, embed=embed)
@@ -157,15 +150,8 @@ async def ask(ctx, question: discord.Option(str)):
             )
             computation_finish = ttime()
             elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(color=0xff0000)
-            embed.add_field(name="**Вопрос:**", value=question, inline=False)
-            if len(response["choices"][0]["text"]) < 1024:
-                embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
-            else:
-                embed.description="Длинна ответа превысила максимальное значение"
-                embed.add_field(name="**Ответ:**",
-                                value=response["choices"][0]["text"][:1024],
-                                inline=False)
+            embed = discord.Embed(title="Ответ:", description=response["choices"][0]["text"], color=0xff0000)
+            embed.add_field(name="Вопрос:", value=question, inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
@@ -193,15 +179,8 @@ async def ask(ctx, question: discord.Option(str)):
             )
             computation_finish = ttime()
             elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(color=0xff0000)
-            embed.add_field(name="**Вопрос:**", value=question, inline=False)
-            if len(response["choices"][0]["text"]) < 1024:
-                embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
-            else:
-                embed.description="Длинна ответа превысила максимальное значение"
-                embed.add_field(name="**Ответ:**",
-                                value=response["choices"][0]["text"][:1024],
-                                inline=False)
+            embed = discord.Embed(title="Ответ:", description=response["choices"][0]["text"], color=0xff0000)
+            embed.add_field(name="Вопрос:", value=question, inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
@@ -229,15 +208,8 @@ async def ask(ctx, question: discord.Option(str)):
             )
             computation_finish = ttime()
             elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(color=0xff0000)
-            embed.add_field(name="**Вопрос:**", value=question, inline=False)
-            if len(response["choices"][0]["text"]) < 1024:
-                embed.add_field(name="**Ответ:**", value=response["choices"][0]["text"], inline=False)
-            else:
-                embed.description="Длинна ответа превысила максимальное значение"
-                embed.add_field(name="**Ответ:**",
-                                value=response["choices"][0]["text"][:1024],
-                                inline=False)
+            embed = discord.Embed(title="Ответ:", description=response["choices"][0]["text"], color=0xff0000)
+            embed.add_field(name="Вопрос:", value=question, inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
