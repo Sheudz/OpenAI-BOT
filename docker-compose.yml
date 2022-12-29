@@ -1,8 +1,8 @@
 version: '3.9'
 
 services:
-  gptbot:
-    build: ./chatgptbot
+  discord-bot:
+    build: discord-bot
     environment:
       - OPENAI_API_KEY=$OPENAI_API_KEY
       - DISCORD_BOT_TOKEN=$DISCORD_BOT_TOKEN
