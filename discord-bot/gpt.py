@@ -74,12 +74,12 @@ async def on_application_command_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown):
         return await ctx.respond(embed=discord.Embed(
             title="Error",
-            description=f"Попробуйте через {round(error.retry_after, 2)} секунд",
+            description=f"Спробуйте через {round(error.retry_after, 2)} секунд",
             color=0xff0000), ephemeral=True)
     elif isinstance(error, commands.MissingPermissions):
         return await ctx.respond(embed=discord.Embed(
             title="Error",
-            description="У тебя нехватает прав",
+            description="У тебе бракує прав",
             color=0xff0000), ephemeral=True)
 
 # ACCESS
@@ -89,9 +89,9 @@ async def member_block(ctx, member: discord.Member):
         roles = [role.id for role in author.roles]
         if role_admin in roles:
             await member.add_roles(ctx.guild.get_role(role_ban))
-            await ctx.respond(f"{member.mention}/{member.name} заблокирован", ephemeral=True)
+            await ctx.respond(f"{member.mention}/{member.name} заблокований", ephemeral=True)
         else:
-            await ctx.respond("у тебя недостаточно прав чтоб блокировать GPT для пользователей", ephemeral=True)
+            await ctx.respond("у тебе недостатньо прав, щоб блокувати GPT для користувачів", ephemeral=True)
 
 @accessgroup.command(name="unblock",description="unblock gpt for the member")
 async def member_unblock(ctx, member: discord.Member):
@@ -100,11 +100,11 @@ async def member_unblock(ctx, member: discord.Member):
         if role_admin in roles:
             try:
                 await member.remove_roles(ctx.guild.get_role(role_ban))
-                await ctx.respond(f"{member.mention}/{member.name} разаблокирован", ephemeral=True)
+                await ctx.respond(f"{member.mention}/{member.name} разблокований", ephemeral=True)
             except:
-                await ctx.respond(f"{member.mention}/{member.name} не был заблокирован", ephemeral=True)
+                await ctx.respond(f"{member.mention}/{member.name} не був заблокований", ephemeral=True)
         else:
-            await ctx.respond("у тебя недостаточно прав чтоб разблокировать GPT для пользователей", ephemeral=True)
+            await ctx.respond("у тебе недостатньо прав, щоб розблокувати GPT для користувачів", ephemeral=True)
 
 @bot.user_command(name="Block")
 async def member_block(ctx, member: discord.Member):
@@ -112,9 +112,9 @@ async def member_block(ctx, member: discord.Member):
         roles = [role.id for role in author.roles]
         if role_admin in roles:
             await member.add_roles(ctx.guild.get_role(role_ban))
-            await ctx.respond(f"{member.mention}/{member.name} заблокирован", ephemeral=True)
+            await ctx.respond(f"{member.mention}/{member.name} заблокований", ephemeral=True)
         else:
-            await ctx.respond("у тебя недостаточно прав чтоб блокировать GPT для пользователей", ephemeral=True)
+            await ctx.respond("у тебе недостатньо прав, щоб блокувати GPT для користувачів", ephemeral=True)
 
 @bot.user_command(name="Unblock")
 async def member_unblock(ctx, member: discord.Member):
@@ -122,20 +122,20 @@ async def member_unblock(ctx, member: discord.Member):
         if role_admin in roles:
             try:
                 await member.remove_roles(ctx.guild.get_role(role_ban))
-                await ctx.respond(f"{member.mention}/{member.name} разаблокирован", ephemeral=True)
+                await ctx.respond(f"{member.mention}/{member.name} разблокований", ephemeral=True)
             except:
-                await ctx.respond(f"{member.mention}/{member.name} не был заблокирован", ephemeral=True)
+                await ctx.respond(f"{member.mention}/{member.name} не був заблокований", ephemeral=True)
         else:
-            await ctx.respond("у тебя недостаточно прав чтоб разблокировать GPT для пользователей", ephemeral=True)
+            await ctx.respond("у тебе недостатньо прав, щоб розблокувати GPT для користувачів", ephemeral=True)
 
 # GPT
 @askgroup.command(name="babbage", description="ask babbage model a question")
 @commands.cooldown(1, 30, commands.BucketType.user)
 async def ask(ctx, question: discord.Option(str)):
         if role_ban in [role.id for role in ctx.author.roles]:
-            await ctx.respond("тебе не доступен GPT", ephemeral=True)
+            await ctx.respond("Тобі не доступний GPT", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
-            await ctx.respond("Я могу отвечать на ваши вопросы только в канале #gpt-chat", ephemeral=True)
+            await ctx.respond("Я можу відповідати на ваші запитання лише у каналі #gpt-chat", ephemeral=True)
         else:
             await ctx.defer()
             computation_start = ttime()
@@ -150,9 +150,9 @@ async def ask(ctx, question: discord.Option(str)):
             )
             computation_finish = ttime()
             elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(title="Ответ:", description=response["choices"][0]["text"], color=0xff0000)
-            embed.add_field(name="Вопрос:", value=question, inline=False)
-            embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
+            embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0xff0000)
+            embed.add_field(name="Питання:", value=question, inline=False)
+            embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
 @askgroup.command(name="curie", description="ask curie model a question")
@@ -160,11 +160,11 @@ async def ask(ctx, question: discord.Option(str)):
 async def ask(ctx, question: discord.Option(str)):
         roles = [role.id for role in ctx.author.roles]
         if role_ban in roles:
-            await ctx.respond("тебе не доступен GPT", ephemeral=True)
+            await ctx.respond("Тобі не доступний GPT", ephemeral=True)
         elif role_newbie not in roles and role_constant not in roles and role_old not in roles and role_eternalold not in roles and role_pseudoowner not in roles:
-            await ctx.respond("тебе не доступна єта модель из-за слишком низкого уровня", ephemeral=True)
+            await ctx.respond("Тобі не доступна ця модель через занадто низький рівень", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
-            await ctx.respond("Я могу отвечать на ваши вопросы только в канале #gpt-chat", ephemeral=True)
+            await ctx.respond("Я можу відповідати на ваші запитання лише у каналі #gpt-chat", ephemeral=True)
         else:
             await ctx.defer()
             computation_start = ttime()
@@ -179,9 +179,9 @@ async def ask(ctx, question: discord.Option(str)):
             )
             computation_finish = ttime()
             elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(title="Ответ:", description=response["choices"][0]["text"], color=0xff0000)
-            embed.add_field(name="Вопрос:", value=question, inline=False)
-            embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
+            embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0xff0000)
+            embed.add_field(name="Питання:", value=question, inline=False)
+            embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
 @askgroup.command(name="davinci", description="ask davinci model a question")
@@ -189,11 +189,11 @@ async def ask(ctx, question: discord.Option(str)):
 async def ask(ctx, question: discord.Option(str)):
         roles = [role.id for role in ctx.author.roles]
         if role_ban in roles:
-            await ctx.respond("тебе не доступен GPT", ephemeral=True)
+            await ctx.respond("Тобі не доступний GPT", ephemeral=True)
         elif role_constant not in roles and role_old not in roles and role_eternalold not in roles and role_pseudoowner not in roles:
-            await ctx.respond("тебе не доступна єта модель из-за слишком низкого уровня", ephemeral=True)
+            await ctx.respond("Тобі не доступна ця модель через занадто низький рівень", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
-            await ctx.respond("Я могу отвечать на ваши вопросы только в канале #gpt-chat", ephemeral=True)
+            await ctx.respond("Я можу відповідати на ваші запитання лише у каналі #gpt-chat", ephemeral=True)
         else:
             await ctx.defer()
             computation_start = ttime()
@@ -208,8 +208,8 @@ async def ask(ctx, question: discord.Option(str)):
             )
             computation_finish = ttime()
             elapsedtime = int(round(computation_finish - computation_start))
-            embed = discord.Embed(title="Ответ:", description=response["choices"][0]["text"], color=0xff0000)
-            embed.add_field(name="Вопрос:", value=question, inline=False)
+            embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0xff0000)
+            embed.add_field(name="Питання:", value=question, inline=False)
             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
