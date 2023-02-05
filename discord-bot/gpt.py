@@ -210,7 +210,7 @@ async def ask(ctx, question: discord.Option(str)):
             elapsedtime = int(round(computation_finish - computation_start))
             embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0xff0000)
             embed.add_field(name="Питання:", value=question, inline=False)
-            embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
+            embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
 # MISC
