@@ -30,38 +30,40 @@ askgroup = bot.create_group("ask", "ask different models a question")
 accessgroup = bot.create_group("member", "member access related commands")
 
 # CLASSES
-# class GptButtons(discord.ui.View):
-#     def __init__(self, ctx, question, model, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.timeout = None
-#
-#         self.ctx = ctx
-#         self.question = question
-#         self.model = model
-#
-#     @discord.ui.button(label="Regenerate", emoji="♻️", style=discord.ButtonStyle.green)
-#     async def rbutton_callback(self, _, interaction):
-#         if self.ctx.author.id == interaction.user.id:
-#             await interaction.response.defer()
-#             computation_start = ttime()
-#             response = openai.Completion.create(
-#                 engine=self.model,
-#                 prompt=self.question,
-#                 temperature=0.6,
-#                 max_tokens=1024,
-#                 top_p=0.1,
-#                 frequency_penalty=0.1,
-#                 presence_penalty=0.1
-#             )
-#             computation_finish = ttime()
-#             elapsedtime = int(round(computation_finish - computation_start))
-#             embed = discord.Embed(title="Ответ:", description=response["choices"][0]["text"], color=0xff0000)
-#             embed.add_field(name="Вопрос:", value=question, inline=False)
-#             embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
-#             ogres = await interaction.original_response()
-#             await interaction.followup.edit_message(message_id=ogres.id, view=None, embed=embed)
-#         else:
-#             await interaction.response.send_message("Вы не можете заново сгенерировать ответ на не ваш вопрос", ephemeral=True)
+'''
+class GptButtons(discord.ui.View):
+    def __init__(self, ctx, question, model, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.timeout = None
+
+        self.ctx = ctx
+        self.question = question
+        self.model = model
+
+    @discord.ui.button(label="Regenerate", emoji="♻️", style=discord.ButtonStyle.green)
+    async def rbutton_callback(self, _, interaction):
+        if self.ctx.author.id == interaction.user.id:
+            await interaction.response.defer()
+            computation_start = ttime()
+            response = openai.Completion.create(
+                engine=self.model,
+                prompt=self.question,
+                temperature=0.6,
+                max_tokens=1024,
+                top_p=0.1,
+                frequency_penalty=0.1,
+                presence_penalty=0.1
+            )
+            computation_finish = ttime()
+            elapsedtime = int(round(computation_finish - computation_start))
+            embed = discord.Embed(title="Ответ:", description=response["choices"][0]["text"], color=0xff0000)
+            embed.add_field(name="Вопрос:", value=question, inline=False)
+            embed.set_footer(text=f"обработка заняла {str(datetime.timedelta(seconds=elapsedtime))}")
+            ogres = await interaction.original_response()
+            await interaction.followup.edit_message(message_id=ogres.id, view=None, embed=embed)
+        else:
+            await interaction.response.send_message("Вы не можете заново сгенерировать ответ на не ваш вопрос", ephemeral=True)
+'''
 
 # EVENTS
 @bot.event
@@ -212,6 +214,22 @@ async def ask(ctx, question: discord.Option(str)):
             embed.add_field(name="Питання:", value=question, inline=False)
             embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
+
+@bot.command(name="generate_image", description="генерує AI зображення")
+@commands.cooldown(1, 70, commands.BucketType.user)
+async def generate_image(ctx, prompt):
+    await ctx.defer()
+    response = openai.Image.create(
+    prompt=prompt,
+    n=1,
+    size="1024x1024"
+    )
+    image_url = response['data'][0]['url']
+
+    embed = discord.Embed(title="Згенероване зображення: " + prompt, color=0xff0000)
+    embed.set_image(url=image_url)
+    embed.set_footer(text="Тестова функція для GPT бота")
+    await ctx.followup.send(embed=embed)
 
 # MISC
 @bot.command(name="ping", description="measures latency")
