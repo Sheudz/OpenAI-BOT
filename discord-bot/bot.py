@@ -151,7 +151,7 @@ async def ask_babbage(ctx, question: discord.Option(str)):
             presence_penalty=0.1
             )
             elapsedtime = int(round(ttime() - computation_start))
-            embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0xff0000)
+            embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0x5258bd)
             embed.add_field(name="Питання:", value=question, inline=False)
             embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
@@ -179,7 +179,7 @@ async def ask_curie(ctx, question: discord.Option(str)):
             presence_penalty=0.1
             )
             elapsedtime = int(round(ttime() - computation_start))
-            embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0xff0000)
+            embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0x5258bd)
             embed.add_field(name="Питання:", value=question, inline=False)
             embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
@@ -207,7 +207,7 @@ async def ask_davinci(ctx, question: discord.Option(str)):
             presence_penalty=0.1
             )
             elapsedtime = int(round(ttime() - computation_start))
-            embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0xff0000)
+            embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0x5258bd)
             embed.add_field(name="Питання:", value=question, inline=False)
             embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
@@ -230,7 +230,7 @@ async def image_generate(ctx, prompt):
         )
         image_url = response['data'][0]['url']
         elapsedtime = int(round(ttime() - computation_start))
-        embed = discord.Embed(title="Згенероване зображення: " + prompt, color=0xff0000)
+        embed = discord.Embed(title="Згенероване зображення: " + prompt, color=0x5258bd)
         embed.set_image(url=image_url)
         embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
         await ctx.followup.send(embed=embed)
@@ -242,7 +242,7 @@ async def ping(ctx):
     return await ctx.respond(embed=discord.Embed(
         title="Ping",
         description=f"Pong:  {round(bot.latency * 1000)}ms",
-        color=0xff0000), ephemeral=True)
+        color=0x5258bd), ephemeral=True)
 
 @bot.command(name="uptime", description="shows bot uptime")
 @commands.cooldown(1, 15, commands.BucketType.user)
@@ -250,7 +250,7 @@ async def uptime(ctx):
     current_time = ttime()
     difference = int(round(current_time - start_time))
     text = str(datetime.timedelta(seconds=difference))
-    embed = discord.Embed(color=0xff0000)
+    embed = discord.Embed(color=0x5258bd)
     embed.add_field(name="Uptime", value=text)
     await ctx.respond(embed=embed, ephemeral=True)
 
