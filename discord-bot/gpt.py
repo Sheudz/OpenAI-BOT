@@ -68,7 +68,7 @@ class GptButtons(discord.ui.View):
 # EVENTS
 @bot.event
 async def on_ready():
-    await bot.change_presence(status=discord.Status.online, activity=discord.Game('https://github.com/Sheudz/Python-GPT-BOT'))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game('https://github.com/Sheudz/Python-Discord-OpenAi-BOT'))
     print("BOT IS UP")
 
 @bot.event
@@ -85,7 +85,7 @@ async def on_application_command_error(ctx, error):
             color=0xff0000), ephemeral=True)
 
 # ACCESS
-@accessgroup.command(name="block",description="block gpt for the member")
+@accessgroup.command(name="block",description="block AI-BOT for the member")
 async def member_block(ctx, member: discord.Member):
         author = ctx.user
         roles = [role.id for role in author.roles]
@@ -95,7 +95,7 @@ async def member_block(ctx, member: discord.Member):
         else:
             await ctx.respond("у тебе недостатньо прав, щоб блокувати GPT для користувачів", ephemeral=True)
 
-@accessgroup.command(name="unblock",description="unblock gpt for the member")
+@accessgroup.command(name="unblock",description="unblock AI-BOT for the member")
 async def member_unblock(ctx, member: discord.Member):
         author = ctx.user
         roles = [role.id for role in author.roles]
@@ -106,7 +106,7 @@ async def member_unblock(ctx, member: discord.Member):
             except:
                 await ctx.respond(f"{member.mention}/{member.name} не був заблокований", ephemeral=True)
         else:
-            await ctx.respond("у тебе недостатньо прав, щоб розблокувати GPT для користувачів", ephemeral=True)
+            await ctx.respond("у тебе недостатньо прав, щоб розблокувати AI-BOT для користувачів", ephemeral=True)
 
 @bot.user_command(name="Block")
 async def member_block(ctx, member: discord.Member):
@@ -116,7 +116,7 @@ async def member_block(ctx, member: discord.Member):
             await member.add_roles(ctx.guild.get_role(role_ban))
             await ctx.respond(f"{member.mention}/{member.name} заблокований", ephemeral=True)
         else:
-            await ctx.respond("у тебе недостатньо прав, щоб блокувати GPT для користувачів", ephemeral=True)
+            await ctx.respond("у тебе недостатньо прав, щоб блокувати AI-BOT для користувачів", ephemeral=True)
 
 @bot.user_command(name="Unblock")
 async def member_unblock(ctx, member: discord.Member):
