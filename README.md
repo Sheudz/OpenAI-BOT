@@ -1,1 +1,1 @@
-# Python-OpenAi-BOT
+# Discord-OpenAi-BOT
