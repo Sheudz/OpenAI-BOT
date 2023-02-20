@@ -68,7 +68,7 @@ class GptButtons(discord.ui.View):
 # EVENTS
 @bot.event
 async def on_ready():
-    await bot.change_presence(status=discord.Status.online, activity=discord.Game('https://github.com/Sheudz/Python-Discord-OpenAi-BOT'))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game('https://github.com/Sheudz/Python-OpenAi-BOT'))
     print("BOT IS UP")
 
 @bot.event
