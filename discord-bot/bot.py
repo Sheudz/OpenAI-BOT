@@ -214,7 +214,7 @@ async def ask_davinci(ctx, question: discord.Option(str)):
 
 @imagegroup.command(name="generate", description="generate image")
 @commands.cooldown(1, 70, commands.BucketType.user)
-async def image_generate(ctx, prompt):
+async def image_generate(ctx, prompt: discord.Option(str)):
     roles = [role.id for role in ctx.author.roles]
     if role_ban in roles:
         await ctx.respond("Тобі не доступний GPT-BOT", ephemeral=True)
