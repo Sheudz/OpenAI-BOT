@@ -93,7 +93,7 @@ async def member_block(ctx, member: discord.Member):
             await member.add_roles(ctx.guild.get_role(role_ban))
             await ctx.respond(f"{member.mention}/{member.name} заблокований", ephemeral=True)
         else:
-            await ctx.respond("у тебе недостатньо прав, щоб блокувати GPT для користувачів", ephemeral=True)
+            await ctx.respond("у тебе недостатньо прав, щоб блокувати AI-BOT для користувачів", ephemeral=True)
 
 @accessgroup.command(name="unblock",description="unblock AI-BOT for the member")
 async def member_unblock(ctx, member: discord.Member):
@@ -128,14 +128,14 @@ async def member_unblock(ctx, member: discord.Member):
             except:
                 await ctx.respond(f"{member.mention}/{member.name} не був заблокований", ephemeral=True)
         else:
-            await ctx.respond("у тебе недостатньо прав, щоб розблокувати GPT для користувачів", ephemeral=True)
+            await ctx.respond("у тебе недостатньо прав, щоб розблокувати AI-BOT для користувачів", ephemeral=True)
 
 # GPT
 @askgroup.command(name="babbage", description="ask babbage model a question")
 @commands.cooldown(1, 30, commands.BucketType.user)
 async def ask_babbage(ctx, question: discord.Option(str)):
         if role_ban in [role.id for role in ctx.author.roles]:
-            await ctx.respond("Тобі не доступний GPT-BOT", ephemeral=True)
+            await ctx.respond("Тобі не доступний AI-BOT", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
             await ctx.respond("Я можу відповідати на ваші запитання лише у каналі #gpt-chat", ephemeral=True)
         else:
@@ -161,7 +161,7 @@ async def ask_babbage(ctx, question: discord.Option(str)):
 async def ask_curie(ctx, question: discord.Option(str)):
         roles = [role.id for role in ctx.author.roles]
         if role_ban in roles:
-            await ctx.respond("Тобі не доступний GPT-BOT", ephemeral=True)
+            await ctx.respond("Тобі не доступний AI-BOT", ephemeral=True)
         elif role_newbie not in roles and role_constant not in roles and role_old not in roles and role_eternalold not in roles and role_pseudoowner not in roles:
             await ctx.respond("Тобі не доступна ця модель через занадто низький рівень", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
@@ -189,7 +189,7 @@ async def ask_curie(ctx, question: discord.Option(str)):
 async def ask_davinci(ctx, question: discord.Option(str)):
         roles = [role.id for role in ctx.author.roles]
         if role_ban in roles:
-            await ctx.respond("Тобі не доступний GPT-BOT", ephemeral=True)
+            await ctx.respond("Тобі не доступний AI-BOT", ephemeral=True)
         elif role_constant not in roles and role_old not in roles and role_eternalold not in roles and role_pseudoowner not in roles:
             await ctx.respond("Тобі не доступна ця модель через занадто низький рівень", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
@@ -212,12 +212,13 @@ async def ask_davinci(ctx, question: discord.Option(str)):
             embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
+# DALLE2
 @imagegroup.command(name="generate", description="generate image")
 @commands.cooldown(1, 70, commands.BucketType.user)
 async def image_generate(ctx, prompt: discord.Option(str)):
     roles = [role.id for role in ctx.author.roles]
     if role_ban in roles:
-        await ctx.respond("Тобі не доступний GPT-BOT", ephemeral=True)
+        await ctx.respond("Тобі не доступний AI-BOT", ephemeral=True)
     elif ctx.channel.id != channel_gpt:
         await ctx.respond("Я можу відповідати на ваші запитання лише у каналі #gpt-chat", ephemeral=True)
     else:
