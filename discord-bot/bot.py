@@ -133,7 +133,7 @@ async def member_unblock(ctx, member: discord.Member):
 # GPT
 @askgroup.command(name="babbage", description="ask babbage model a question")
 @commands.cooldown(1, 30, commands.BucketType.user)
-async def ask_babbage(ctx, question: discord.Option(str)):
+async def ask_babbage(ctx, prompt: discord.Option(str)):
         if role_ban in [role.id for role in ctx.author.roles]:
             await ctx.respond("Тобі не доступний AI-BOT", ephemeral=True)
         elif ctx.channel.id != channel_gpt:
@@ -143,7 +143,7 @@ async def ask_babbage(ctx, question: discord.Option(str)):
             computation_start = ttime()
             response = openai.Completion.create(
             engine="text-babbage-001",
-            prompt=question,
+            prompt=prompt,
             temperature=0.4,
             max_tokens=1024,
             top_p=0.1,
@@ -152,13 +152,13 @@ async def ask_babbage(ctx, question: discord.Option(str)):
             )
             elapsedtime = int(round(ttime() - computation_start))
             embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0x5258bd)
-            embed.add_field(name="Питання:", value=question, inline=False)
+            embed.add_field(name="Питання:", value=prompt, inline=False)
             embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
 @askgroup.command(name="curie", description="ask curie model a question")
 @commands.cooldown(1, 30, commands.BucketType.user)
-async def ask_curie(ctx, question: discord.Option(str)):
+async def ask_curie(ctx, prompt: discord.Option(str)):
         roles = [role.id for role in ctx.author.roles]
         if role_ban in roles:
             await ctx.respond("Тобі не доступний AI-BOT", ephemeral=True)
@@ -171,7 +171,7 @@ async def ask_curie(ctx, question: discord.Option(str)):
             computation_start = ttime()
             response = openai.Completion.create(
             engine="text-curie-001",
-            prompt=question,
+            prompt=prompt,
             temperature=0.4,
             max_tokens=1024,
             top_p=0.1,
@@ -180,13 +180,13 @@ async def ask_curie(ctx, question: discord.Option(str)):
             )
             elapsedtime = int(round(ttime() - computation_start))
             embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0x5258bd)
-            embed.add_field(name="Питання:", value=question, inline=False)
+            embed.add_field(name="Питання:", value=prompt, inline=False)
             embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
 @askgroup.command(name="davinci", description="ask davinci model a question")
 @commands.cooldown(1, 30, commands.BucketType.user)
-async def ask_davinci(ctx, question: discord.Option(str)):
+async def ask_davinci(ctx, prompt: discord.Option(str)):
         roles = [role.id for role in ctx.author.roles]
         if role_ban in roles:
             await ctx.respond("Тобі не доступний AI-BOT", ephemeral=True)
@@ -199,7 +199,7 @@ async def ask_davinci(ctx, question: discord.Option(str)):
             computation_start = ttime()
             response = openai.Completion.create(
             engine="text-davinci-003",
-            prompt=question,
+            prompt=prompt,
             temperature=0.4,
             max_tokens=1024,
             top_p=0.1,
@@ -208,7 +208,7 @@ async def ask_davinci(ctx, question: discord.Option(str)):
             )
             elapsedtime = int(round(ttime() - computation_start))
             embed = discord.Embed(title="Відповідь:", description=response["choices"][0]["text"], color=0x5258bd)
-            embed.add_field(name="Питання:", value=question, inline=False)
+            embed.add_field(name="Питання:", value=prompt, inline=False)
             embed.set_footer(text=f"обробка зайняла {str(datetime.timedelta(seconds=elapsedtime))}")
             await ctx.followup.send(embed=embed)
 
