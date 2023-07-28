@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  discord-bot:
+    build: src
+    environment:
+      - OPENAI_API_KEY=$OPENAI_API_KEY
+      - DISCORD_BOT_TOKEN=$DISCORD_BOT_TOKEN
+    restart: always

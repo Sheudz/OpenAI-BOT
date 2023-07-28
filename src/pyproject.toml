@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "openai-bot"
+version = "1.0.0"
+description = "Discord bot that allows users to query OpenAI API"
+authors = ["jaredmontoya <49511278+jaredmontoya@users.noreply.github.com>", "Sheudz <szhcreator.help@gmail.com>"]
+license = "GPL-3.0-or-later"
+readme = "../README.md"
+packages = [{include = "openai_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+openai = "^0.27.4"
+disnake = "^2.8.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
